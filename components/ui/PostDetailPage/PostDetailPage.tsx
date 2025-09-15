@@ -23,26 +23,26 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
 
   if (!post) {
     return (
-      <main className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="relative min-h-screen text-white font-sans overflow-x-hidden bg-db-dark-blue flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white mb-4">Post não encontrado</h1>
           {onBack ? (
             <button
               onClick={onBack}
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="text-db-cyan hover:text-db-blue-light transition-colors"
             >
               Voltar para a comunidade
             </button>
           ) : (
             <Link 
               href={backUrl}
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="text-db-cyan hover:text-db-blue-light transition-colors"
             >
               Voltar para a comunidade
             </Link>
           )}
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -85,14 +85,14 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
   };
 
   return (
-    <main className="min-h-screen bg-gray-900">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="relative min-h-screen text-white font-sans overflow-x-hidden bg-db-dark-blue">
+      <div className="relative z-10 container mx-auto px-6 py-8">
         {/* Back Button */}
-        <div className="mb-6">
+        <div className="mb-8">
           {onBack ? (
             <button
               onClick={onBack}
-              className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="inline-flex items-center text-db-cyan hover:text-db-blue-light transition-colors"
             >
               <svg 
                 className="w-4 h-4 mr-2" 
@@ -112,7 +112,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
           ) : (
             <Link 
               href={backUrl}
-              className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="inline-flex items-center text-db-cyan hover:text-db-blue-light transition-colors"
             >
               <svg 
                 className="w-4 h-4 mr-2" 
@@ -133,14 +133,14 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
         </div>
 
         {/* Post Section */}
-        <article className="bg-gray-800 border border-gray-700 rounded-lg p-8 mb-8">
+        <article className="bg-white/5 backdrop-blur-md border border-db-blue-light/20 rounded-2xl p-8 mb-8">
           {/* Post Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4">
               <img
                 src={post.author.avatarUrl}
                 alt={post.author.name}
-                className="w-12 h-12 rounded-full object-cover border-2 border-gray-600"
+                className="w-12 h-12 rounded-full object-cover border-2 border-db-cyan/30"
               />
               <div>
                 <h3 className="font-semibold text-white">{post.author.name}</h3>
@@ -150,7 +150,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
             
             {/* Upvotes */}
             <div className="flex items-center space-x-2">
-              <button className="flex items-center space-x-1 px-4 py-2 text-gray-400 hover:text-cyan-400 hover:bg-gray-700 rounded-lg transition-colors">
+              <button className="flex items-center space-x-1 px-4 py-2 text-gray-400 hover:text-db-cyan hover:bg-db-blue-dark/30 rounded-lg transition-colors border border-db-blue-light/20">
                 <svg 
                   className="w-5 h-5" 
                   fill="none" 
@@ -177,7 +177,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
             {post.tags.map((tag: string) => (
               <span
                 key={tag}
-                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-900/30 text-cyan-300 border border-cyan-700/50"
+                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-db-blue-dark/40 text-db-cyan border border-db-blue-light/20"
               >
                 {tag}
               </span>
@@ -191,23 +191,23 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
         </article>
 
         {/* Comments Section */}
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-8">
+        <div className="bg-white/5 backdrop-blur-md border border-db-blue-light/20 rounded-2xl p-8">
           <h2 className="text-2xl font-semibold text-white mb-6">
             Comentários ({post.comments.length})
           </h2>
 
           {/* Add Comment Form */}
-          <div className="mb-8 p-6 bg-gray-700 rounded-lg border border-gray-600">
+          <div className="mb-8 p-6 bg-db-blue-dark/30 rounded-2xl border border-db-blue-light/10">
             <h3 className="text-lg font-medium text-white mb-4">Adicionar um comentário</h3>
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Escreva seu comentário..."
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-vertical"
+              className="w-full px-4 py-3 bg-white/5 border border-db-blue-light/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-db-cyan focus:border-transparent resize-vertical backdrop-blur-sm"
               rows={4}
             />
             <button
-              className="mt-4 px-6 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+              className="mt-4 px-6 py-2 bg-db-cyan hover:bg-db-blue-light text-db-dark-blue font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-db-cyan focus:ring-offset-2 focus:ring-offset-db-dark-blue"
               disabled={!newComment.trim()}
             >
               Comentar
@@ -223,7 +223,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
             ) : (
               <div className="text-center py-12">
                 <svg 
-                  className="mx-auto h-12 w-12 text-gray-600" 
+                  className="mx-auto h-12 w-12 text-gray-400" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -246,6 +246,6 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
