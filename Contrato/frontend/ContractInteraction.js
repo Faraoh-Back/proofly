@@ -206,66 +206,122 @@ async function consultarNFTs(ownerAddress) {
 }
 
 async function listarTodosNFTsDeUsuario(userAddress) {
-  // 1. Chamar a nova função do contrato para obter os IDs dos tokens
-  const tokenIdsResponse = await server.invoke(
-      contract.call('tokens_of_owner', new Address(userAddress).toScVal())
-  );
-  const tokenIds = scValToNative(tokenIdsResponse.retval); // Será um array de números, ex: [5, 42, 101]
+  const contract = new Contract(NFT_CONTRACT_ID);
 
-  // 2. Buscar os metadados para cada ID
-  const nfts = [];
-  for (const id of tokenIds) {
-    const metadata = await getTokenMetadata(id);
-    if (metadata) {
-      nfts.push(metadata);
+  try {
+    // 1. Obter uma conta para simular a transação
+    const account = await server.getAccount(publicKey);
+
+    // 2. Chamar tokens_of_owner para obter os IDs dos tokens
+    const tokensOfOwnerTx = new TransactionBuilder(account, {
+      fee: BASE_FEE,
+      networkPassphrase: Networks.TESTNET
+    })
+    .addOperation(
+      contract.call(
+        'tokens_of_owner',
+        new Address(userAddress).toScVal()
+      )
+    )
+    .setTimeout(300)
+    .build();
+
+    // Simular a transação para obter os token IDs
+    const simulatedTokens = await server.simulateTransaction(tokensOfOwnerTx);
+    
+    if (!simulatedTokens.result || !simulatedTokens.result.retval) {
+      console.log(`Usuário ${userAddress} não possui NFTs.`);
+      return [];
     }
+
+    const tokenIds = scValToNative(simulatedTokens.result.retval);
+    console.log(`Token IDs encontrados:`, tokenIds);
+
+    // 3. Buscar os metadados para cada token ID
+    const nfts = [];
+    for (const tokenId of tokenIds) {
+      try {
+        const metadataTx = new TransactionBuilder(account, {
+          fee: BASE_FEE,
+          networkPassphrase: Networks.TESTNET
+        })
+        .addOperation(
+          contract.call(
+            'get_token_metadata',
+            xdr.ScVal.scvU32(tokenId)
+          )
+        )
+        .setTimeout(300)
+        .build();
+
+        const simulatedMetadata = await server.simulateTransaction(metadataTx);
+        
+        if (simulatedMetadata.result && simulatedMetadata.result.retval) {
+          const metadata = scValToNative(simulatedMetadata.result.retval);
+          nfts.push({
+            token_id: metadata.token_id,
+            name: metadata.name,
+            symbol: metadata.symbol,
+            uri: metadata.uri,
+            owner: metadata.owner
+          });
+        }
+      } catch (error) {
+        console.warn(`Erro ao buscar metadata do token ${tokenId}:`, error);
+      }
+    }
+
+    console.log(`Usuário ${userAddress} possui ${nfts.length} NFTs:`);
+    nfts.forEach(nft => {
+      console.log(`- Token #${nft.token_id}: ${nft.name} (${nft.symbol})`);
+    });
+
+    return nfts;
+    
+  } catch (error) {
+    console.error("Erro ao listar NFTs do usuário:", error);
+    return [];
   }
-
-  console.log(`Usuário ${userAddress} possui ${nfts.length} NFTs:`);
-  nfts.forEach(nft => {
-    console.log(`- Token #${nft.token_id}: ${nft.name}`);
-  });
-
-  return nfts;
 }
 
+// Função auxiliar para buscar metadata de um token específico
 async function getTokenMetadata(tokenId) {
   const contract = new Contract(NFT_CONTRACT_ID);
   
-  // Criar a transação para chamar a função do contrato
-  const account = await server.getAccount(somePublicKey);
-  
-  const tx = new TransactionBuilder(account, {
-    fee: BASE_FEE,
-    networkPassphrase: Networks.TESTNET
-  })
-  .addOperation(
-    contract.call(
-      'get_token_metadata',  // Nome da função no contrato Rust
-      xdr.ScVal.scvU32(tokenId)  // Parâmetro token_id
-    )
-  )
-  .setTimeout(300)
-  .build();
-  
-  // Para consultas, apenas simulamos (não precisamos assinar)
-  const simulated = await server.simulateTransaction(tx);
-  
-  // Extrair o resultado da simulação
-  if (simulated.result) {
-    // Decodificar o resultado para JavaScript
-    const metadata = scValToNative(simulated.result.retval);
+  try {
+    const account = await server.getAccount(publicKey);
     
-    return {
-      name: metadata.name,
-      symbol: metadata.symbol,
-      uri: metadata.uri,
-      owner: metadata.owner,
-      token_id: metadata.token_id
-    };
+    const tx = new TransactionBuilder(account, {
+      fee: BASE_FEE,
+      networkPassphrase: Networks.TESTNET
+    })
+    .addOperation(
+      contract.call(
+        'get_token_metadata',
+        xdr.ScVal.scvU32(tokenId)
+      )
+    )
+    .setTimeout(300)
+    .build();
+    
+    const simulated = await server.simulateTransaction(tx);
+    
+    if (simulated.result && simulated.result.retval) {
+      const metadata = scValToNative(simulated.result.retval);
+      return {
+        token_id: metadata.token_id,
+        name: metadata.name,
+        symbol: metadata.symbol,
+        uri: metadata.uri,
+        owner: metadata.owner
+      };
+    }
+    
+    return null;
+  } catch (error) {
+    console.error(`Erro ao buscar metadata do token ${tokenId}:`, error);
+    return null;
   }
-  
-  throw new Error('Falha ao buscar metadados do token');
 }
 
 async function getTokenMetadataSimplificado(tokenId) {
@@ -304,7 +360,7 @@ async function runTests() {
 
   // 3. Mintar um novo NFT
   console.log("\n3. Mintando um novo NFT...");
-  const tokenId = 1; // ID do token a ser mintado
+  const tokenId = 1;
   const metadata = {
     name: "NFT de Teste",
     symbol: "TEST",
@@ -326,13 +382,13 @@ async function runTests() {
     console.error("Erro ao consultar NFTs:", error);
   }
 
-  // 5. Buscar metadata do token mintado
-  console.log("\n5. Buscando metadata do token #1...");
+  // 5. Listar todos os NFTs do usuário
+  console.log("\n5. Listando todos os NFTs do usuário...");
   try {
-    const metadata = await getTokenMetadata(1);
-    console.log("Metadata do token #1:", metadata);
+    const userNFTs = await listarTodosNFTsDeUsuario(publicKey);
+    console.log("NFTs do usuário:", userNFTs);
   } catch (error) {
-    console.error("Erro ao buscar metadata:", error);
+    console.error("Erro ao listar NFTs:", error);
   }
 }
 
