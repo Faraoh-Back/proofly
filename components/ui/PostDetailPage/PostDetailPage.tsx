@@ -1,25 +1,49 @@
-// app/forum/[id]/page.tsx
+// components/ui/PostDetailPage/PostDetailPage.tsx
 'use client';
 
 import { useState } from 'react';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { CommentItem } from '../../../components/forum/CommentItem';
-import { getPostById } from '../../mocks/forumMocks';
-import { Comment } from '../../../types/forum';
+import { CommentItem } from '../../forum/CommentItem';
+import { getPostById } from '../../../app/mocks/forumMocks';
+import { Comment, Post } from '../../../types/forum';
 
-interface PostPageProps {
-  params: {
-    id: string;
-  };
+interface PostDetailPageProps {
+  postId: string;
+  backUrl?: string;
+  onBack?: () => void;
 }
 
-export default function PostPage({ params }: PostPageProps) {
-  const post = getPostById(params.id);
+export const PostDetailPage: React.FC<PostDetailPageProps> = ({ 
+  postId, 
+  backUrl = '/forum',
+  onBack
+}) => {
+  const post = getPostById(postId);
   const [newComment, setNewComment] = useState('');
 
   if (!post) {
-    notFound();
+    return (
+      <main className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-white mb-4">Post não encontrado</h1>
+          {onBack ? (
+            <button
+              onClick={onBack}
+              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              Voltar para a comunidade
+            </button>
+          ) : (
+            <Link 
+              href={backUrl}
+              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              Voltar para a comunidade
+            </Link>
+          )}
+        </div>
+      </main>
+    );
   }
 
   const formatDate = (dateString: string) => {
@@ -65,25 +89,47 @@ export default function PostPage({ params }: PostPageProps) {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Back Button */}
         <div className="mb-6">
-          <Link 
-            href="/forum" 
-            className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
-          >
-            <svg 
-              className="w-4 h-4 mr-2" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+          {onBack ? (
+            <button
+              onClick={onBack}
+              className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M15 19l-7-7 7-7" 
-              />
-            </svg>
-            Voltar para a comunidade
-          </Link>
+              <svg 
+                className="w-4 h-4 mr-2" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M15 19l-7-7 7-7" 
+                />
+              </svg>
+              Voltar para a comunidade
+            </button>
+          ) : (
+            <Link 
+              href={backUrl}
+              className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              <svg 
+                className="w-4 h-4 mr-2" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M15 19l-7-7 7-7" 
+                />
+              </svg>
+              Voltar para a comunidade
+            </Link>
+          )}
         </div>
 
         {/* Post Section */}
@@ -202,4 +248,4 @@ export default function PostPage({ params }: PostPageProps) {
       </div>
     </main>
   );
-}
+};

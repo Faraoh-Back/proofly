@@ -1,12 +1,14 @@
 // components/forum/PostListItem.tsx
-import Link from 'next/link';
+'use client';
+
 import { Post } from '../../types/forum';
 
 interface PostListItemProps {
   post: Post;
+  onPostClick?: (postId: string) => void;
 }
 
-export const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
+export const PostListItem: React.FC<PostListItemProps> = ({ post, onPostClick }) => {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('pt-BR', {
       day: 'numeric',
@@ -24,9 +26,17 @@ export const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
     return count.toString();
   };
 
+  const handleClick = () => {
+    if (onPostClick) {
+      onPostClick(post.id);
+    }
+  };
+
   return (
-    <Link href={`/forum/${post.id}`} passHref>
-      <article className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-cyan-500 hover:bg-gray-700/50 transition-all duration-200 cursor-pointer group">
+    <article 
+      className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-cyan-500 hover:bg-gray-700/50 transition-all duration-200 cursor-pointer group"
+      onClick={handleClick}
+    >
         <div className="flex gap-4">
           {/* Votes Section */}
           <div className="flex flex-col items-center min-w-[60px]">
@@ -116,6 +126,5 @@ export const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
           </div>
         </div>
       </article>
-    </Link>
   );
 };
