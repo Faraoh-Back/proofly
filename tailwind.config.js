@@ -17,23 +17,27 @@ module.exports = {
       }
     },
     extend: {
-      fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans]
+      colors: {
+        // Cores baseadas no databahn.ai
+        'db-dark-blue': '#0a101e',
+        'db-cyan': '#00f0ff',
+        'db-blue-light': '#36a9e1', // Para alguns gradientes ou destaques
+        'db-blue-dark': '#1e3a8a', // Para botões ou fundos mais escuros
       },
+      fontFamily: {
+        // Definindo a fonte Inter, já carregada pelo Next.js
+        sans: ['Inter', 'sans-serif'],
+      },
+      // ANIMAÇÃO - Certifique-se de ter esta animação se estiver usando-a no placeholder
       keyframes: {
-        'accordion-down': {
-          from: { height: 0 },
-          to: { height: 'var(--radix-accordion-content-height)' }
+        'pulse-slow': {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.03)', opacity: '0.8' },
         },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: 0 }
-        }
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
-      }
+        'pulse-slow': 'pulse-slow 3s infinite ease-in-out',
+      },
     }
   },
   plugins: [require('tailwindcss-animate')]
