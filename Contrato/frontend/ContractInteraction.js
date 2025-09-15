@@ -191,7 +191,12 @@ async function consultarNFTs(ownerAddress) {
 
     // Simular a transação (não precisa assinar para consultas)
     const simulated = await server.simulateTransaction(tx);
-    const result = simulated.result;
+    if (simulated.result && simulated.result.retval) {
+      const balance = scValToNative(simulated.result.retval);
+      return balance;
+    } else {
+      throw new Error("Simulação não retornou resultado esperado");
+    }
 
     return result;
   } catch (error) {

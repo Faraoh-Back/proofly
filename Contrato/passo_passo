@@ -29,3 +29,10 @@ vercel
 vercel env add STELLAR_SECRET_KEY
 
 # NFT ID: CBZMAQMNTERT5J2WXZDOHSMDXVDYPDFCKXNWOIEOUPRWFUTUDOEFBV67
+
+# Buildar o contrato
+cargo build --target wasm32-unknown-unknown --release
+
+# Deploy do contrato
+
+stellar contract deploy --wasm target/wasm32-unknown-unknown/release/nfs.wasm

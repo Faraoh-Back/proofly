@@ -1,0 +1,183 @@
+Compiling ntf v0.1.0 (/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts)
+warning: unused imports: `Map` and `Vec`
+ --> src/lib.rs:4:19
+  |
+4 |     Address, Env, Map, String, Vec
+  |                   ^^^          ^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+error[E0382]: borrow of moved value: `to`
+  --> src/lib.rs:55:13
+   |
+34 |         to: Address,
+   |         -- move occurs because `to` has type `soroban_sdk::Address`, which does not implement the `Copy` trait
+...
+48 |             owner: to,
+   |                    -- value moved here
+...
+55 |             &to
+   |             ^^^ value borrowed here after move
+   |
+help: consider cloning the value if the performance cost is acceptable
+   |
+48 |             owner: to.clone(),
+   |                      ++++++++
+
+error[E0382]: borrow of moved value: `env`
+   --> src/lib.rs:65:9
+    |
+33  |         env: Env,
+    |         --- move occurs because `env` has type `Env`, which does not implement the `Copy` trait
+...
+63  |         let mut balance = Self::balance_of(env, to);
+    |                                            --- value moved here
+64  |         balance += 1;
+65  |         env.storage().persistent().set(
+    |         ^^^ value borrowed here after move
+    |
+note: consider changing this parameter type in method `balance_of` to borrow instead if owning the value isn't necessary
+   --> src/lib.rs:120:28
+    |
+120 |     pub fn balance_of(env: Env, owner: Address) -> u32 {
+    |            ----------      ^^^ this parameter takes ownership of the value
+    |            |
+    |            in this method
+help: consider cloning the value if the performance cost is acceptable
+    |
+63  |         let mut balance = Self::balance_of(env.clone(), to);
+    |                                               ++++++++
+
+error[E0382]: use of moved value: `to`
+   --> src/lib.rs:66:31
+    |
+34  |         to: Address,
+    |         -- move occurs because `to` has type `soroban_sdk::Address`, which does not implement the `Copy` trait
+...
+63  |         let mut balance = Self::balance_of(env, to);
+    |                                                 -- value moved here
+...
+66  |             &DataKey::Balance(to), 
+    |                               ^^ value used here after move
+    |
+note: consider changing this parameter type in method `balance_of` to borrow instead if owning the value isn't necessary
+   --> src/lib.rs:120:40
+    |
+120 |     pub fn balance_of(env: Env, owner: Address) -> u32 {
+    |            ---------- in this method   ^^^^^^^ this parameter takes ownership of the value
+help: consider cloning the value if the performance cost is acceptable
+    |
+63  |         let mut balance = Self::balance_of(env, to.clone());
+    |                                                   ++++++++
+
+error[E0382]: use of moved value: `env`
+   --> src/lib.rs:107:43
+    |
+73  |         env: Env,
+    |         --- move occurs because `env` has type `Env`, which does not implement the `Copy` trait
+...
+106 |         let from_balance = Self::balance_of(env, from) - 1;
+    |                                             --- value moved here
+107 |         let to_balance = Self::balance_of(env, to) + 1;
+    |                                           ^^^ value used here after move
+    |
+note: consider changing this parameter type in method `balance_of` to borrow instead if owning the value isn't necessary
+   --> src/lib.rs:120:28
+    |
+120 |     pub fn balance_of(env: Env, owner: Address) -> u32 {
+    |            ----------      ^^^ this parameter takes ownership of the value
+    |            |
+    |            in this method
+help: consider cloning the value if the performance cost is acceptable
+    |
+106 |         let from_balance = Self::balance_of(env.clone(), from) - 1;
+    |                                                ++++++++
+
+error[E0382]: use of moved value: `to`
+   --> src/lib.rs:107:48
+    |
+75  |         to: Address,
+    |         -- move occurs because `to` has type `soroban_sdk::Address`, which does not implement the `Copy` trait
+...
+99  |         metadata.owner = to;
+    |                          -- value moved here
+...
+107 |         let to_balance = Self::balance_of(env, to) + 1;
+    |                                                ^^ value used here after move
+    |
+help: consider cloning the value if the performance cost is acceptable
+    |
+99  |         metadata.owner = to.clone();
+    |                            ++++++++
+
+error[E0382]: borrow of moved value: `env`
+   --> src/lib.rs:109:9
+    |
+73  |         env: Env,
+    |         --- move occurs because `env` has type `Env`, which does not implement the `Copy` trait
+...
+107 |         let to_balance = Self::balance_of(env, to) + 1;
+    |                                           --- value moved here
+108 |         
+109 |         env.storage().persistent().set(
+    |         ^^^ value borrowed here after move
+    |
+note: consider changing this parameter type in method `balance_of` to borrow instead if owning the value isn't necessary
+   --> src/lib.rs:120:28
+    |
+120 |     pub fn balance_of(env: Env, owner: Address) -> u32 {
+    |            ----------      ^^^ this parameter takes ownership of the value
+    |            |
+    |            in this method
+help: consider cloning the value if the performance cost is acceptable
+    |
+107 |         let to_balance = Self::balance_of(env.clone(), to) + 1;
+    |                                              ++++++++
+
+error[E0382]: use of moved value: `from`
+   --> src/lib.rs:110:31
+    |
+74  |         from: Address,
+    |         ---- move occurs because `from` has type `soroban_sdk::Address`, which does not implement the `Copy` trait
+...
+106 |         let from_balance = Self::balance_of(env, from) - 1;
+    |                                                  ---- value moved here
+...
+110 |             &DataKey::Balance(from), 
+    |                               ^^^^ value used here after move
+    |
+note: consider changing this parameter type in method `balance_of` to borrow instead if owning the value isn't necessary
+   --> src/lib.rs:120:40
+    |
+120 |     pub fn balance_of(env: Env, owner: Address) -> u32 {
+    |            ---------- in this method   ^^^^^^^ this parameter takes ownership of the value
+help: consider cloning the value if the performance cost is acceptable
+    |
+106 |         let from_balance = Self::balance_of(env, from.clone()) - 1;
+    |                                                      ++++++++
+
+error[E0382]: use of moved value: `to`
+   --> src/lib.rs:114:31
+    |
+75  |         to: Address,
+    |         -- move occurs because `to` has type `soroban_sdk::Address`, which does not implement the `Copy` trait
+...
+107 |         let to_balance = Self::balance_of(env, to) + 1;
+    |                                                -- value moved here
+...
+114 |             &DataKey::Balance(to), 
+    |                               ^^ value used here after move
+    |
+note: consider changing this parameter type in method `balance_of` to borrow instead if owning the value isn't necessary
+   --> src/lib.rs:120:40
+    |
+120 |     pub fn balance_of(env: Env, owner: Address) -> u32 {
+    |            ---------- in this method   ^^^^^^^ this parameter takes ownership of the value
+help: consider cloning the value if the performance cost is acceptable
+    |
+107 |         let to_balance = Self::balance_of(env, to.clone()) + 1;
+    |                                                  ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+warning: `ntf` (lib) generated 1 warning
+error: could not compile `ntf` (lib) due to 8 previous errors; 1 warning emitted
