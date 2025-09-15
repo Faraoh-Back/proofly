@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 // Usaremos os mesmos ícones da lucide-react, pois são modernos e compatíveis
 // Linha corrigida
-import ParticlesBackground from './ParticlesBackground'; // NOVO: Importe o componente
+import ParticlesBackground from '../components/ui/ParticlesBackground/ParticlesBackground'; // NOVO: Importe o componente
 import { ArrowRight, Trophy, ShieldCheck, Briefcase, User, Building2, Code } from 'lucide-react';
 
 // Seus imports de Supabase e Pricing (mantidos)

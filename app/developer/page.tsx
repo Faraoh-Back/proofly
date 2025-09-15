@@ -1,7 +1,11 @@
 import Developer from '@/pages/Developer';
 
-export default async function Index() {
+export default async function Index({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   return (
-    <Developer />
+    <Developer searchParams={searchParams} />
   );
 }
