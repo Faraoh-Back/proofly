@@ -1,0 +1,23 @@
+# Instale Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Instale o Stellar CLI
+cargo install --locked stellar-cli
+
+# Gere um novo par de chaves
+stellar keys generate --global myaccount --network testnet
+
+# Visualize o endereço
+stellar keys address myaccount
+
+# Configure o target WASM
+rustup target add wasm32-unknown-unknown
+
+# Instale o Vercel CLI
+npm i -g vercel
+
+# Faça o deploy
+vercel
+
+# Configure as variáveis de ambiente
+vercel env add STELLAR_SECRET_KEY
