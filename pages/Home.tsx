@@ -38,16 +38,7 @@ const StellarLogo = dynamic(() => import('@/components/ui/threedmodel'), {
 // }
 
 
-const partners = [
-  { name: 'Baerfa', logo: '/path-to-your-logos/baerfa.png' },
-  { name: 'Optiv', logo: '/path-to-your-logos/optiv.png' },
-  { name: 'Mobia', logo: '/path-to-your-logos/mobia.png' },
-  { name: 'Evansion', logo: '/path-to-your-logos/evansion.png' },
-  { name: 'Inspira', logo: '/path-to-your-logos/inspira.png' },
-  { name: 'KPMG', logo: '/path-to-your-logos/kpmg.png' },
-  { name: 'EY', logo: '/path-to-your-logos/ey.png' },
-  { name: 'Surepoint', logo: '/path-to-your-logos/surepoint.png' },
-];
+
 
 // Componente reutilizável para a seção de features (cores atualizadas)
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
@@ -80,7 +71,7 @@ export default function Home() {
 
       {/* ALTERADO: Fundo principal para azul escuro do databahn.ai */}
        <div className="relative min-h-screen text-white font-sans overflow-x-hidden"> {/* ALTERADO: font-sans para Inter */}
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="fixed top-0 left-0 w-full h-full z-0">
           <ParticlesBackground />
         </div>
         <div className="relative z-10"> 
@@ -107,7 +98,7 @@ export default function Home() {
               {/* Efeito de fundo sutil */}
               <div 
                 className="absolute inset-0 bg-no-repeat bg-cover bg-right opacity-40" 
-                style={{ backgroundImage: "url('https://www.databahn.ai/wp-content/uploads/2023/11/bg-e1700813337946.png')" }}
+                // style={{ backgroundImage: "url('https://www.databahn.ai/wp-content/uploads/2023/11/bg-e1700813337946.png')" }}
               ></div>
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-db-dark-blue to-transparent z-0"></div>
               <div className="absolute inset-0 bg-db-dark-blue/50 z-0"></div> {/* ALTERADO: overlay para a cor de fundo */}
@@ -184,21 +175,13 @@ export default function Home() {
               </div>
             </section>
 
-            {/* Seção "Trusted By" Mantida (cor de fundo atualizada) */}
-            <section className="py-16 bg-db-dark-blue">
-              <div className="container mx-auto px-6 text-center">
-                <h2 className="text-gray-400 text-sm font-bold tracking-wider">
-                  PARTNERS AND COMPANIES BUILDING THE FUTURE WITH US
-                </h2>
-                <div className="mt-12 grid grid-cols-4 md:grid-cols-8 gap-8 items-center justify-center">
-                  {partners.map((partner) => (
-                    <div key={partner.name} className="flex justify-center grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
-                      <img src={`https://via.placeholder.com/120x40?text=${partner.name}`} alt={partner.name} className="h-8 object-contain" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+
+                        {/* remover depois */}
+           <div className='flex justify-center items-center'>
+           <h2 className="text-gray-400 text-sm font-bold tracking-wider">
+                PARTNERS AND COMPANIES BUILDING THE FUTURE WITH US
+            </h2>
+           </div>
 
           </main>
         </div>

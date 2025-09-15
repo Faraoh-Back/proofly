@@ -47,9 +47,11 @@ function Model({ url }: { url: string }) {
         if (child.isMesh) {
           // Create a completely new white material
           child.material = new THREE.MeshStandardMaterial({
+            // color: 0x00f0ff,
             color: 0x3a7ca5,
+            // color: 0x3a7ca5,
             metalness: 0.8,
-            roughness: 0.3,
+            roughness: 0.1,
             emissive: 0x1f1f1f,
           });
           
@@ -80,7 +82,7 @@ export default function StellarLogo({ url }: { url: string }) {
     <Canvas
       shadows
       camera={{ position: [0, 5, 15], fov: 50 }}
-      style={{ background: "#0a101e", height: 800, width: '100%' }}
+      style={{ background: "#0a101e", height: 700 }}
     >
       {/* Lights */}
       <ambientLight intensity={1} />
