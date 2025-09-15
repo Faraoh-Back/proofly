@@ -28,21 +28,13 @@
     "@stripe/stripe-js": "2.4.0",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.43.4",
-<<<<<<< HEAD
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.330.0",
-=======
     "@types/three": "^0.180.0",
-    "class-variance-authority": "^0.7.0",
-    "classnames": "^2.5.1",
-    "clsx": "^2.1.1",
-    "gltfjsx": "^6.5.3",
-    "lucide-react": "0.330.0",
->>>>>>> c17b92967840ceff632a7a6dd026e12bd37dc6c6
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -52,9 +44,8 @@
     "stripe": "^14.25.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "tsparticles-slim": "^2.12.0"
+    "tsparticles-slim": "^2.12.0",
     "tailwindcss": "^3.4.4",
-    "tailwindcss-animate": "^1.0.7",
     "three": "^0.180.0"
   },
   "devDependencies": {

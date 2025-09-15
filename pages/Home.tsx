@@ -10,6 +10,15 @@ import Pricing from '@/components/ui/Pricing/Pricing';
 import { createClient } from '@/utils/supabase/server';
 import { getProducts, getSubscription, getUser } from '@/utils/supabase/queries';
 
+import dynamic from 'next/dynamic';
+
+const StellarLogo = dynamic(() => import('@/components/ui/threedmodel'), {
+    ssr: false
+  })
+
+
+
+
 // // A lógica da página de preços foi mantida conforme o original
 // async function PricingPage() {
 //   const supabase = createClient();
@@ -137,10 +146,12 @@ export default function Home() {
 
                   {/* ALTERADO: Lado Direito agora com o AnimatedLogoPlaceholder */}
                   <div className="relative flex items-center justify-center h-full">
-                      <AnimatedLogoPlaceholder 
+                      {/* <AnimatedLogoPlaceholder 
                           label="Proofly" 
                           description="Your On-Chain Identity" 
-                      />
+                      /> */}
+
+                    <StellarLogo url={'/model-white.gltf'} />
                   </div>
                 </div>
               </div>

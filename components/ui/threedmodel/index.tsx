@@ -48,9 +48,9 @@ function Model({ url }: { url: string }) {
           // Create a completely new white material
           child.material = new THREE.MeshStandardMaterial({
             color: 0x3a7ca5,
-            metalness: 0.5,
+            metalness: 0.8,
             roughness: 0.3,
-            emissive: 0x000000,
+            emissive: 0x1f1f1f,
           });
           
           // Remove any textures that might override the color
@@ -80,7 +80,7 @@ export default function StellarLogo({ url }: { url: string }) {
     <Canvas
       shadows
       camera={{ position: [0, 5, 15], fov: 50 }}
-      style={{ background: "#0a101e", height: 500, width: '100%' }}
+      style={{ background: "#0a101e", height: 800, width: '100%' }}
     >
       {/* Lights */}
       <ambientLight intensity={1} />
@@ -105,7 +105,7 @@ export default function StellarLogo({ url }: { url: string }) {
 
       <Particles count={100} />
 
-      <OrbitControls enablePan={false} enableZoom={true} />
+      <OrbitControls enablePan={false} enableZoom={false} />
     </Canvas>
   );
 }
