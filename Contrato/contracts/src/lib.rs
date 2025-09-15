@@ -1,7 +1,7 @@
 #![no_std]
 use soroban_sdk::{
     contract, contractimpl, contracttype, 
-    Address, Env, Map, String, Vec
+    Address, Env, String
 };
 
 #[contracttype]
@@ -45,7 +45,7 @@ impl NFTContract {
             name,
             symbol,
             uri,
-            owner: to,
+            owner: to.clone(), // Clone para reutilizar 'to'
             token_id,
         };
         
@@ -60,7 +60,7 @@ impl NFTContract {
         );
         
         // Atualizar balance
-        let mut balance = Self::balance_of(env, to);
+        let mut balance = Self::balance_of(&env, &to); // Passar referências
         balance += 1;
         env.storage().persistent().set(
             &DataKey::Balance(to), 
@@ -96,15 +96,15 @@ impl NFTContract {
             .persistent()
             .get(&DataKey::TokenMetadata(token_id))
             .unwrap();
-        metadata.owner = to;
+        metadata.owner = to.clone(); // Clone para reutilizar 'to'
         env.storage().persistent().set(
             &DataKey::TokenMetadata(token_id), 
             &metadata
         );
         
-        // Atualizar balances
-        let from_balance = Self::balance_of(env, from) - 1;
-        let to_balance = Self::balance_of(env, to) + 1;
+        // Atualizar balances - usar clones para reutilizar os valores
+        let from_balance = Self::balance_of(&env, &from) - 1;
+        let to_balance = Self::balance_of(&env, &to) + 1;
         
         env.storage().persistent().set(
             &DataKey::Balance(from), 
@@ -116,11 +116,11 @@ impl NFTContract {
         );
     }
     
-    // Função para verificar saldo
-    pub fn balance_of(env: Env, owner: Address) -> u32 {
+    // Função para verificar saldo - usar referências para evitar mover os valores
+    pub fn balance_of(env: &Env, owner: &Address) -> u32 {
         env.storage()
             .persistent()
-            .get(&DataKey::Balance(owner))
+            .get(&DataKey::Balance(owner.clone()))
             .unwrap_or(0)
     }
 
@@ -130,5 +130,5 @@ impl NFTContract {
             .persistent()
             .get(&DataKey::TokenMetadata(token_id))
             .unwrap()
-}
+    }
 }
