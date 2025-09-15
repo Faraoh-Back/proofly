@@ -15,7 +15,7 @@ const {
 const server = new StellarSdk.rpc.Server('https://soroban-testnet.stellar.org');
 
 // Você precisa definir estas constantes
-const NFT_CONTRACT_ID = "CBZMAQMNTERT5J2WXZDOHSMDXVDYPDFCKXNWOIEOUPRWFUTUDOEFBV67"; // Substitua pelo ID do seu contrato NFT
+const NFT_CONTRACT_ID = "CCXSLIQAOPT3MADV3SMYIUSMUS7WYPGOPQA662F4P6WBHD4ZQMRMYSHY"; // Substitua pelo ID do seu contrato NFT
 
 const adminSecretKey = 'SD3I7RGOVXIDVZN6OQKSWRMGW5Y53QICENHD37KXLOAW45NDPGUT7RAK'; // Cole a chave secreta que começa com 'S...'
 const keypair = Keypair.fromSecret(adminSecretKey);
