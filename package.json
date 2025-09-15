@@ -23,12 +23,16 @@
   },
   "dependencies": {
     "@radix-ui/react-toast": "^1.1.5",
+    "@react-three/drei": "^9",
+    "@react-three/fiber": "^8",
     "@stripe/stripe-js": "2.4.0",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.43.4",
+    "@types/three": "^0.180.0",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
+    "gltfjsx": "^6.5.3",
     "lucide-react": "0.330.0",
     "next": "14.2.3",
     "react": "^18.3.1",
@@ -37,7 +41,8 @@
     "stripe": "^14.25.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
