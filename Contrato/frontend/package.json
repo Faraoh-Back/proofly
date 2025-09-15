@@ -1,14 +1,16 @@
 {
-  "name": "stellar-vercel-app",
+  "name": "frontend",
   "version": "1.0.0",
+  "description": "",
+  "main": "ContractInteraction.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type" : "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@stellar/stellar-sdk": "^11.0.0",
-    "next": "^14.0.0",
-    "react": "^18.0.0"
+    "@stellar/stellar-sdk": "^14.1.1"
   }
 }

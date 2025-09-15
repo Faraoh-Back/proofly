@@ -4,6 +4,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Instale o Stellar CLI
 cargo install --locked stellar-cli
 
+# Instalar o Soroban
+npm install soroban-client
+
 # Gere um novo par de chaves
 stellar keys generate --global myaccount --network testnet
 
@@ -13,6 +16,9 @@ stellar keys address myaccount
 # Configure o target WASM
 rustup target add wasm32-unknown-unknown
 
+# Compilar para WASM
+stellar contract build
+
 # Instale o Vercel CLI
 npm i -g vercel
 
@@ -21,3 +27,5 @@ vercel
 
 # Configure as variáveis de ambiente
 vercel env add STELLAR_SECRET_KEY
+
+# NFT ID: CBZMAQMNTERT5J2WXZDOHSMDXVDYPDFCKXNWOIEOUPRWFUTUDOEFBV67
