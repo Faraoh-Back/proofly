@@ -1,6 +1,7 @@
 
 const partners = [
   { name: 'Stellar', logo: '/stellar_logo.png', invert: true },
+  { name: 'Meridian', logo: '/meridian-logo.png', invert: true },
   { name: 'Vercel', logo: '/vercel.svg' },
   { name: 'Supabase', logo: '/supabase.svg' },
 ];

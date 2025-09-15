@@ -4,43 +4,13 @@ import Head from 'next/head';
 // Linha corrigida
 import ParticlesBackground from '../components/ui/ParticlesBackground/ParticlesBackground'; // NOVO: Importe o componente
 import { ArrowRight, Trophy, ShieldCheck, Briefcase, User, Building2, Code } from 'lucide-react';
-
-// Seus imports de Supabase e Pricing (mantidos)
-import Pricing from '@/components/ui/Pricing/Pricing';
-import { createClient } from '@/utils/supabase/server';
-import { getProducts, getSubscription, getUser } from '@/utils/supabase/queries';
-
 import dynamic from 'next/dynamic';
 
 const StellarLogo = dynamic(() => import('@/components/ui/threedmodel'), {
     ssr: false
-  })
+})
 
 
-
-
-// // A lógica da página de preços foi mantida conforme o original
-// async function PricingPage() {
-//   const supabase = createClient();
-//   const [user, products, subscription] = await Promise.all([
-//     getUser(supabase),
-//     getProducts(supabase),
-//     getSubscription(supabase)
-//   ]);
-
-//   return (
-//     <Pricing
-//       user={user}
-//       products={products ?? []}
-//       subscription={subscription}
-//     />
-//   );
-// }
-
-
-
-
-// Componente reutilizável para a seção de features (cores atualizadas)
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
   <div className="bg-white/5 backdrop-blur-md border border-db-blue-light/20 rounded-2xl p-6 text-left transform hover:-translate-y-2 transition-transform duration-300">
     <div className="bg-db-blue-dark/20 text-db-cyan w-14 h-14 rounded-lg flex items-center justify-center mb-4">
@@ -51,25 +21,11 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; titl
   </div>
 );
 
-// NOVO: Componente para o placeholder animado (replicando o estilo dos StatCards originais)
-const AnimatedLogoPlaceholder = ({ label, description }: { label: string; description: string }) => (
-  <div className="bg-black bg-opacity-40 backdrop-blur-sm border border-db-cyan/30 rounded-lg p-4 text-center transform hover:scale-105 transition-transform duration-300 animate-pulse-slow">
-    <div className="w-24 h-24 bg-gradient-to-br from-db-cyan to-db-blue-light rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-        {/* Placeholder para a logo real, ou um ícone animado */}
-        <Code size={48} className="text-db-dark-blue" /> 
-    </div>
-    <p className="text-2xl lg:text-3xl font-bold text-db-cyan">{label}</p>
-    <p className="text-sm text-gray-300 mt-1">{description}</p>
-  </div>
-);
-
 
 export default function Home() {
   return (
     <>
       
-
-      {/* ALTERADO: Fundo principal para azul escuro do databahn.ai */}
        <div className="relative min-h-screen text-white font-sans overflow-x-hidden"> {/* ALTERADO: font-sans para Inter */}
         <div className="fixed top-0 left-0 w-full h-full z-0">
           <ParticlesBackground />
@@ -124,11 +80,11 @@ export default function Home() {
                     </p>
                     {/* ALTERADO: Dois botões de CTA */}
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <a href="#" className="inline-flex items-center bg-db-cyan hover:bg-db-blue-light text-db-dark-blue font-bold py-3 px-8 rounded-lg transition-colors duration-300 group">
+                      <a href="/developer?tab=profile" className="inline-flex items-center bg-db-cyan hover:bg-db-blue-light text-db-dark-blue font-bold py-3 px-8 rounded-lg transition-colors duration-300 group">
                         <User className="mr-2 h-5 w-5" /> Build Your Profile (User)
                         <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
                       </a>
-                      <a href="#" className="inline-flex items-center bg-transparent border border-gray-500 hover:bg-db-blue-dark hover:border-db-blue-dark text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 group">
+                      <a href="/company?tab=forum" className="inline-flex items-center bg-transparent border border-gray-500 hover:bg-db-blue-dark hover:border-db-blue-dark text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 group">
                         <Building2 className="mr-2 h-5 w-5" /> Hire Talent (Company)
                         <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
                       </a>

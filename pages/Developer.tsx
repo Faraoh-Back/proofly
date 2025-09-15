@@ -2,6 +2,7 @@ import Events from "@/components/ui/Events";
 import Forum from "@/components/ui/Forum";
 import Freelancers from "@/components/ui/Freelancers";
 import Classes from "@/components/ui/Classes";
+import Profile from "@/components/ui/Profile/Profile";
 
 
 export default async function DeveloperPage({
@@ -9,7 +10,7 @@ export default async function DeveloperPage({
 }: {
   searchParams: { tab?: string };
 }) {
-  const activeMenu = searchParams?.tab || "forum";
+  const activeMenu = searchParams?.tab || "profile";
 
   console.log('searchParams', searchParams)
 
@@ -17,6 +18,17 @@ export default async function DeveloperPage({
     <div className="flex min-h-screen bg-db-dark-blue text-white">
       {/* Sidebar */}
       <aside className="w-64 bg-black/30 backdrop-blur-md border-r border-gray-700 p-6 space-y-4">
+        <a
+          href="/developer?tab=profile"
+          className={`block py-2 px-4 rounded-lg transition ${
+            activeMenu === "profile"
+              ? "bg-db-cyan text-db-dark-blue font-bold"
+              : "hover:bg-db-blue-dark"
+          }`}
+        >
+          Profile
+        </a>
+
         <a
           href="/developer?tab=forum"
           className={`block py-2 px-4 rounded-lg transition ${
@@ -61,6 +73,7 @@ export default async function DeveloperPage({
 
       {/* Main Content */}
       <main className="flex-1 p-8">
+        {activeMenu === "profile" && <Profile />}
         {activeMenu === "forum" && <Forum />}
         {activeMenu === "freelance" && <Freelancers />}
         {activeMenu === "events" && <Events />}
