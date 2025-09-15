@@ -149,7 +149,7 @@ export default function Home() {
             </section>
 
             {/* Seção "The Proofly Ecosystem" (cores e ícones atualizados) */}
-            <section className="py-24 bg-db-dark-blue text-center">
+            <section className="bg-db-dark-blue text-center">
               <div className="container mx-auto px-6">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">The Proofly Ecosystem</h2>
                 <p className="text-gray-400 max-w-2xl mx-auto mb-12">
@@ -177,7 +177,7 @@ export default function Home() {
 
 
                         {/* remover depois */}
-           <div className='flex justify-center items-center'>
+           <div className='flex justify-center items-center mt-8'>
            <h2 className="text-gray-400 text-sm font-bold tracking-wider">
                 PARTNERS AND COMPANIES BUILDING THE FUTURE WITH US
             </h2>

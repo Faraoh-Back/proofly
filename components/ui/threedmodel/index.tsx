@@ -82,7 +82,7 @@ export default function StellarLogo({ url }: { url: string }) {
     <Canvas
       shadows
       camera={{ position: [0, 5, 15], fov: 50 }}
-      style={{ background: "#0a101e", height: 700 }}
+      style={{ background: "#0a101e", height: 500 }}
     >
       {/* Lights */}
       <ambientLight intensity={1} />
