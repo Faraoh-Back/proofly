@@ -137,3 +137,5 @@ async function getTokenMetadataSimplificado(tokenId) {
     return null;
   }
 }
+
+// Teste
