@@ -1,7 +1,7 @@
 #![no_std]
 use soroban_sdk::{
     contract, contractimpl, contracttype, 
-    Address, Env, Map, String, Vec
+    Address, Env, String, Vec
 };
 
 #[contracttype]
@@ -74,12 +74,18 @@ impl NFTContract {
         );
         
         // Atualizar balance
-        let mut balance = Self::balance_of(&env, &to);
+        let mut balance = Self::balance_of(env.clone(), to.clone());
         balance += 1;
         env.storage().persistent().set(
-            &DataKey::Balance(to), 
+            &DataKey::Balance(to.clone()), 
             &balance
         );
+
+        // Adicionar token à lista do usuário
+        let mut user_tokens: Vec<u32> = env.storage().persistent()
+            .get(&DataKey::UserTokens(to.clone())).unwrap_or(Vec::new(&env));
+        user_tokens.push_back(token_id);
+        env.storage().persistent().set(&DataKey::UserTokens(to), &user_tokens);
     }
     
     // Função principal para transferir NFT
@@ -120,7 +126,7 @@ impl NFTContract {
         let mut from_tokens: Vec<u32> = env.storage().persistent()
             .get(&DataKey::UserTokens(from.clone())).unwrap_or(Vec::new(&env));
         if let Some(pos) = from_tokens.iter().position(|x| x == token_id) {
-            from_tokens.remove(pos);
+            from_tokens.remove(pos.try_into().unwrap()); // Converte usize para u32
         }
         env.storage().persistent().set(&DataKey::UserTokens(from.clone()), &from_tokens);
 
@@ -131,8 +137,8 @@ impl NFTContract {
         env.storage().persistent().set(&DataKey::UserTokens(to.clone()), &to_tokens);
 
         // Atualizar balances
-        let from_balance = Self::balance_of(&env, &from) - 1;
-        let to_balance = Self::balance_of(&env, &to) + 1;
+        let from_balance = Self::balance_of(env.clone(), from.clone()) - 1;
+        let to_balance = Self::balance_of(env.clone(), to.clone()) + 1;
         
         env.storage().persistent().set(
             &DataKey::Balance(from), 
@@ -144,11 +150,11 @@ impl NFTContract {
         );
     }
     
-    // Função para verificar saldo
-    pub fn balance_of(env: &Env, owner: &Address) -> u32 {
+    // Função para verificar saldo - CORRIGIDA: sem referências
+    pub fn balance_of(env: Env, owner: Address) -> u32 {
         env.storage()
             .persistent()
-            .get(&DataKey::Balance(owner.clone()))
+            .get(&DataKey::Balance(owner))
             .unwrap_or(0)
     }
 
@@ -159,6 +165,7 @@ impl NFTContract {
             .get(&DataKey::TokenMetadata(token_id))
             .unwrap()
     }
+    
     pub fn tokens_of_owner(env: Env, owner: Address) -> Vec<u32> {
         env.storage().persistent().get(&DataKey::UserTokens(owner)).unwrap_or(Vec::new(&env))
     }

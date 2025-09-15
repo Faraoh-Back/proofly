@@ -28,11 +28,18 @@ vercel
 # Configure as variáveis de ambiente
 vercel env add STELLAR_SECRET_KEY
 
-# NFT ID: CBZMAQMNTERT5J2WXZDOHSMDXVDYPDFCKXNWOIEOUPRWFUTUDOEFBV67
+# NFT ID: CCXSLIQAOPT3MADV3SMYIUSMUS7WYPGOPQA662F4P6WBHD4ZQMRMYSHY
+
+# Gerar keys
+
+stellar keys generate --network testnet Admin
 
 # Buildar o contrato
 cargo build --target wasm32-unknown-unknown --release
 
 # Deploy do contrato
 
-stellar contract deploy --wasm target/wasm32-unknown-unknown/release/nfs.wasm
+stellar contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/nft.wasm \
+  --source Admin \
+  --network testnet
