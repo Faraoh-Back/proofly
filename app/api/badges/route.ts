@@ -30,6 +30,13 @@ export async function GET(request: NextRequest) {
         image: "/badge/stellar-colab-badge.png",
         eventLink: "link",
         issuedDate: "2025-08-09",
+      },
+      {
+        id: "3",
+        name: "Google cloud summit",
+        image: "/badge/google-summit.png",
+        eventLink: "link",
+        issuedDate: "2025-08-10",
       }
     ]
   };
