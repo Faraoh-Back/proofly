@@ -39,14 +39,6 @@ impl OrganizationContract {
 
         // Store company address
         env.storage().instance().set(&DataKey::Admin, &company_address);
-
-        // Emit initialization event
-        env.events().publish(
-            (symbol_short!("init"),),
-            company_address.clone()
-        );
-
-        log!(&env, "Organization contract initialized with company address: {}", company_address);
     }
     
     /// Create a new organization and deploy an event contract

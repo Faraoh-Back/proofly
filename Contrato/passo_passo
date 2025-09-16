@@ -24,6 +24,11 @@ cargo build --target wasm32-unknown-unknown --release --verbose &> build.log
 # Deploy do contrato
 
 stellar contract deploy \
-  --wasm proflycontract/target/wasm32-unknown-unknown/release/nft.wasm \
+  --wasm contracts/event_contract/target/wasm32-unknown-unknown/release/event_contract.wasm \
+  --source Admin \
+  --network testnet
+
+stellar contract deploy \
+  --wasm contracts/organization_contract/target/wasm32-unknown-unknown/release/organization_contract.wasm \
   --source Admin \
   --network testnet
