@@ -1,4 +1,3 @@
-// components/ui/PostDetailPage/PostDetailPage.tsx
 'use client';
 
 import { useState } from 'react';
