@@ -1,27 +1,19 @@
-import dynamic from "next/dynamic";
+'use client'
 import Forum from "@/components/ui/Forum";
 import Freelancers from "@/components/ui/Freelancers";
 import Profile from "@/components/ui/Profile/Profile";
 
 // Dynamic import para evitar problemas de SSR com React Three Fiber
-const Events = dynamic(() => import("@/components/ui/Events"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-    </div>
-  )
-});
+import Events from "@/components/ui/Events"
 
 
-export default async function DeveloperPage({
+
+export default function DeveloperPage({
   searchParams,
 }: {
   searchParams: { tab?: string };
 }) {
   const activeMenu = searchParams?.tab || "profile";
-
-  console.log('searchParams', searchParams)
 
   return (
     <div className="flex min-h-screen bg-db-dark-blue text-white">

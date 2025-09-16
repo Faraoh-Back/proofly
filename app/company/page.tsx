@@ -1,11 +1,18 @@
-import CompanyPage from '@/pages/Company';
+import dynamic from 'next/dynamic';
 
-export default async function Index({
+const CompanyPage = dynamic(() => import('@/pages/Company'), {
+  ssr: false
+})
+
+export default function Company({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   return (
-    <CompanyPage searchParams={searchParams} />
+    <div>
+      <CompanyPage searchParams={searchParams} />
+    </div>
+
   );
 }

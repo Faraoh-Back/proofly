@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 // ALTERADO: Importando SelectiveBloom e Select
@@ -96,14 +96,12 @@ function Scene({ url }: { url: string }) {
     <>
       <ambientLight intensity={0.2} />
       <directionalLight color={0x00f0ff} intensity={3} position={[5, 5, 5]} castShadow />
-      
-      <Suspense fallback={null}>
+
         {/* NOVO: Envolvemos o modelo com <Select> para marcá-lo para o brilho */}
         <Select enabled>
           <Model url={url} />
         </Select>
         <Environment preset="city" />
-      </Suspense>
 
       <Particles count={150} />
     </>

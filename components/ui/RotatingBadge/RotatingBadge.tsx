@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useRef, useEffect, useMemo, useState } from "react";
+import React, { useRef, useEffect, useMemo, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Environment, Stars, Center } from "@react-three/drei";
 import { EffectComposer, Bloom, N8AO } from "@react-three/postprocessing";
@@ -414,9 +414,7 @@ export default function RotatingBadge({
         <Environment preset="apartment" />
         {/* Removido as Stars para limpar o fundo */}
 
-        <Suspense fallback={null}>
-          {renderBadge()}
-        </Suspense>
+        {renderBadge()}
 
         {/* Pós-processamento (sem alterações) */}
         <EffectComposer>

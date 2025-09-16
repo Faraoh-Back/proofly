@@ -1,4 +1,5 @@
-"use client";
+'use client'
+export const dynamic = "force-dynamic";
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -8,7 +9,7 @@ import {
 } from 'lucide-react';
 
 import { getEventById } from '../../mocks/eventsMocks'; // Ajuste o caminho se necessário
-import type { StellarEvent } from '../../mocks/eventsMocks';
+import type { StellarEvent } from '../../../types/events';
 
 // --- Lógica de Abas e Ícones (sem alterações) ---
 const tabsConfig: Record<StellarEvent['type'], string[]> = {

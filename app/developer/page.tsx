@@ -1,11 +1,17 @@
-import Developer from '@/pages/Developer';
+import dynamic from 'next/dynamic';
 
-export default async function Index({
+const DeveloperPage = dynamic(() => import('@/pages/Developer'), {
+  ssr: false
+})
+
+export default function Developer({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  return (
-    <Developer searchParams={searchParams} />
+  return (  
+    <div>
+      <DeveloperPage searchParams={searchParams} />
+    </div>
   );
 }

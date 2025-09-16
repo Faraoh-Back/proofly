@@ -1,10 +1,12 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from 'next/server';
 import { getDevelopers } from '../../../../mocks/hireMocks';
 import { DeveloperProfile, SortOption } from '../../../../types/hire';
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const parameters = new URL(request.url);
+    const searchParams = parameters?.searchParams;
     
     // Parse query parameters
     const query = searchParams.get('query') || '';
