@@ -75,7 +75,7 @@ export default async function DeveloperPage({
       <main className="flex-1 p-8">
         {activeMenu === "profile" && <Profile />}
         {activeMenu === "forum" && <Forum />}
-        {activeMenu === "freelance" && <Freelancers />}
+        {activeMenu === "freelance" && <Freelancers userType="developer" />}
         {activeMenu === "events" && <Events />}
         {activeMenu === "classes" && <Classes />}
 

@@ -64,7 +64,7 @@ export default async function CompanyPage({
       <main className="flex-1 p-8">
         {activeMenu === "forum" && <Forum />}
         {activeMenu === "hire" && <Hire />}
-        {activeMenu === "freelance" && <Freelancers />}
+        {activeMenu === "freelance" && <Freelancers userType="company" />}
         {activeMenu === "events" && <Events />}
       </main>
     </div>

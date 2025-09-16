@@ -109,6 +109,35 @@ export default function DeveloperCard({ developer, onContact }: DeveloperCardPro
             </div>
           </div>
 
+          {/* Top Badges - Horizontal Layout */}
+          <div className="mb-4">
+            <h4 className="font-semibold mb-3 flex items-center gap-2">
+              <Award className="text-db-cyan" size={16} />
+              Top Badges ({developer.totalBadges} total)
+            </h4>
+            <div className="flex flex-wrap gap-3">
+              {developer.topBadges.slice(0, 3).map((badge) => (
+                <div key={badge.id} className={`p-3 rounded-lg border ${getRarityColor(badge.rarity)} flex-shrink-0`}>
+                  <div className="flex items-center gap-3">
+                    {/* Rotating 3D Badge */}
+                    <div className="w-12 h-12 flex items-center justify-center">
+                      <RotatingBadge 
+                        category="custom"
+                        rarity={badge.rarity}
+                        size="small"
+                        iconUrl={badge.iconUrl}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-sm truncate">{badge.name}</div>
+                      <div className="text-xs text-gray-400 truncate">{badge.issuedBy}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Social Links */}
           <div className="flex gap-3">
             {developer.socialLinks.github && (
@@ -158,37 +187,8 @@ export default function DeveloperCard({ developer, onContact }: DeveloperCardPro
           </div>
         </div>
 
-        {/* Right Column - Badges & Stats */}
+        {/* Right Column - Stats */}
         <div className="lg:w-80">
-          {/* Top Badges */}
-          <div className="mb-4">
-            <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <Award className="text-db-cyan" size={16} />
-              Top Badges ({developer.totalBadges} total)
-            </h4>
-            <div className="space-y-2">
-              {developer.topBadges.slice(0, 3).map((badge) => (
-                <div key={badge.id} className={`p-3 rounded-lg border ${getRarityColor(badge.rarity)}`}>
-                  <div className="flex items-center gap-3">
-                    {/* Rotating 3D Badge */}
-                    <div className="w-12 h-12 flex items-center justify-center">
-                      <RotatingBadge 
-                        category="custom"
-                        rarity={badge.rarity}
-                        size="small"
-                        iconUrl={badge.iconUrl}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-sm">{badge.name}</div>
-                      <div className="text-xs text-gray-400">{badge.issuedBy}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Attributes */}
           <div className="mb-4">
             <h4 className="font-semibold mb-3">Attributes</h4>
