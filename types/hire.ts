@@ -14,7 +14,7 @@ export interface Badge {
   iconUrl: string; // URL para a imagem do badge
   description: string;
   issuedBy: string; // Ex: "ETHSamba Hackathon"
-  category: 'hackathon' | 'certification' | 'project' | 'contribution'; // Categoria do badge
+  category: 'hackathon' | 'certification' | 'project' | 'contribution' | 'custom'; // Categoria do badge
   rarity: 'common' | 'rare' | 'epic' | 'legendary'; // Raridade do badge
   earnedAt: string; // ISO 8601 format
 }

@@ -5,53 +5,104 @@ import { DeveloperProfile, Badge, ProjectHighlight, PlatformStats } from '../typ
 const mockBadges: Badge[] = [
   {
     id: '1',
-    name: 'ETH Global Finalist',
-    iconUrl: '/badge/eth-global.svg',
-    description: 'Reached finals in ETH Global hackathon',
-    issuedBy: 'ETH Global',
-    category: 'hackathon',
+    name: 'Google Certified Developer',
+    description: 'Google Cloud Platform certified developer',
+    issuedBy: 'Google',
+    iconUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+    category: 'custom',
     rarity: 'epic',
     earnedAt: '2024-03-15T00:00:00Z'
   },
   {
     id: '2',
-    name: 'Smart Contract Expert',
-    iconUrl: '/badge/smart-contract.svg',
-    description: 'Demonstrated advanced smart contract development skills',
-    issuedBy: 'Chainlink Hackathon',
+    name: 'Meta Engineer',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg',
+    description: 'Senior engineer at Meta Platforms',
+    issuedBy: 'Meta',
     category: 'hackathon',
     rarity: 'rare',
     earnedAt: '2024-02-20T00:00:00Z'
   },
   {
     id: '3',
-    name: 'DeFi Pioneer',
-    iconUrl: '/badge/defi.svg',
-    description: 'Built innovative DeFi solutions',
-    issuedBy: 'DeFi Alliance',
+    name: 'Amazon AWS Expert',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+    description: 'AWS cloud platform and infrastructure expert',
+    issuedBy: 'Amazon',
     category: 'project',
     rarity: 'legendary',
     earnedAt: '2024-01-10T00:00:00Z'
   },
   {
     id: '4',
-    name: 'NFT Creator',
-    iconUrl: '/badge/nft.svg',
-    description: 'Created successful NFT collections',
-    issuedBy: 'OpenSea Hackathon',
+    name: 'Twitter Developer',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg',
+    description: 'Twitter API and platform specialist',
+    issuedBy: 'Twitter',
     category: 'hackathon',
     rarity: 'rare',
     earnedAt: '2023-12-05T00:00:00Z'
   },
   {
     id: '5',
-    name: 'Web3 Security',
-    iconUrl: '/badge/security.svg',
-    description: 'Expertise in Web3 security auditing',
-    issuedBy: 'ConsenSys Diligence',
+    name: 'Microsoft Azure Expert',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg',
+    description: 'Microsoft Azure cloud platform expertise',
+    issuedBy: 'Microsoft',
     category: 'certification',
     rarity: 'epic',
     earnedAt: '2023-11-15T00:00:00Z'
+  },
+  // Badges com URLs de empresas famosas
+  {
+    id: '6',
+    name: 'Amazon AWS Expert',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+    description: 'Amazon Web Services certified solutions architect',
+    issuedBy: 'Amazon',
+    category: 'certification',
+    rarity: 'legendary',
+    earnedAt: '2023-10-20T00:00:00Z'
+  },
+  {
+    id: '7',
+    name: 'Netflix Tech Lead',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg',
+    description: 'Senior technical leadership at Netflix',
+    issuedBy: 'Netflix',
+    category: 'project',
+    rarity: 'epic',
+    earnedAt: '2023-09-15T00:00:00Z'
+  },
+  {
+    id: '8',
+    name: 'Spotify Engineer',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Spotify_App_Logo.svg',
+    description: 'Music streaming platform engineering expert',
+    issuedBy: 'Spotify',
+    category: 'hackathon',
+    rarity: 'rare',
+    earnedAt: '2023-08-10T00:00:00Z'
+  },
+  {
+    id: '9',
+    name: 'Ethereum Builder',
+    iconUrl: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+    description: 'Built innovative solutions on Ethereum',
+    issuedBy: 'Ethereum Foundation',
+    category: 'project',
+    rarity: 'epic',
+    earnedAt: '2024-02-15T00:00:00Z'
+  },
+  {
+    id: '10',
+    name: 'Polygon Hackathon Winner',
+    iconUrl: 'https://cryptologos.cc/logos/polygon-matic-logo.png',
+    description: 'First place in Polygon hackathon',
+    issuedBy: 'Polygon Labs',
+    category: 'hackathon',
+    rarity: 'legendary',
+    earnedAt: '2024-01-20T00:00:00Z'
   }
 ];
 

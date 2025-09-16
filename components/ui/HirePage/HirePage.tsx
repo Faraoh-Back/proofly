@@ -2,9 +2,20 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { Search, Filter, Users, Award, Code, MapPin, DollarSign, Star, ExternalLink, Github, Linkedin, Twitter, Globe } from 'lucide-react';
 import { DeveloperProfile, HireFilters, SortOption } from '../../../types/hire';
 import { getDevelopers, getPlatformStats, availableSkills } from '../../../mocks/hireMocks';
+
+// Dynamic import for performance
+const RotatingBadge = dynamic(() => import('../RotatingBadge'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-12 h-12 rounded-lg flex items-center justify-center animate-pulse bg-gradient-to-br from-db-cyan/20 to-db-blue-light/20 border border-db-cyan/30">
+      <Award size={20} className="text-db-cyan animate-spin" />
+    </div>
+  )
+});
 
 export const HirePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -356,11 +367,17 @@ export const HirePage: React.FC = () => {
                       Top Badges ({developer.totalBadges} total)
                     </h4>
                     <div className="space-y-2">
-                      {developer.topBadges.slice(0, 3).map(badge => (
+                      {developer.topBadges.slice(0, 3).map((badge, index) => (
                         <div key={badge.id} className={`p-3 rounded-lg border ${getRarityColor(badge.rarity)}`}>
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-db-cyan/20 rounded-full flex items-center justify-center">
-                              <Award size={16} className="text-db-cyan" />
+                            {/* Rotating 3D Badge - show all badges but limit to top 3 for performance */}
+                            <div className="w-12 h-12 flex items-center justify-center">
+                              <RotatingBadge 
+                                category="custom"
+                                rarity={badge.rarity}
+                                size="small"
+                                iconUrl={badge.iconUrl}
+                              />
                             </div>
                             <div className="flex-1">
                               <div className="font-medium text-sm">{badge.name}</div>

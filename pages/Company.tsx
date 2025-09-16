@@ -1,7 +1,7 @@
 import Events from "@/components/ui/Events";
 import Forum from "@/components/ui/Forum";
 import Freelancers from "@/components/ui/Freelancers";
-import Hire from "@/components/ui/Hire";
+import Hire from "@/components/ui/Hire/index";
 
 export default async function CompanyPage({
   searchParams,

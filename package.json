@@ -22,19 +22,21 @@
     "supabase:pull": "npx supabase db pull"
   },
   "dependencies": {
+    "@next/swc-win32-x64-msvc": "^15.5.3",
     "@radix-ui/react-toast": "^1.1.5",
     "@react-three/drei": "^9",
     "@react-three/fiber": "^8",
+    "@react-three/postprocessing": "^2.19.1",
     "@stripe/stripe-js": "2.4.0",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.43.4",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
+    "@types/three": "^0.180.0",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.330.0",
-    "@types/three": "^0.180.0",
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -43,10 +45,10 @@
     "react-tsparticles": "^2.12.2",
     "stripe": "^14.25.0",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "tsparticles-slim": "^2.12.0",
     "tailwindcss": "^3.4.4",
-    "three": "^0.180.0"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.180.0",
+    "tsparticles-slim": "^2.12.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
