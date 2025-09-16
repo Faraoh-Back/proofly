@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 import { getEventById } from '../../mocks/eventsMocks'; // Ajuste o caminho se necessário
-import type { StellarEvent } from '../../mocks/eventsMocks';
+import type { StellarEvent } from '../../mocks/eventsMocks'; // Ajuste o caminho se necessário
 
 // --- Lógica de Abas e Ícones (sem alterações) ---
 const tabsConfig: Record<StellarEvent['type'], string[]> = {
