@@ -40,3 +40,11 @@ yarn-error.log*
 # certificates
 certificates
 .env*.local
+
+# Contratos Compilados
+
+Contrato/contracts/target/*
+Contrato/old/*
+Contrato/contracts/event_contract/target/*
+Contrato/contracts/organization_contract/target/*
+

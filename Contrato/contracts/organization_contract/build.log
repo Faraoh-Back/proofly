@@ -1,0 +1,91 @@
+       Fresh unicode-ident v1.0.19
+       Fresh proc-macro2 v1.0.101
+       Fresh quote v1.0.40
+       Fresh syn v2.0.106
+       Fresh serde_core v1.0.225
+       Fresh itoa v1.0.15
+       Fresh memchr v2.7.5
+       Fresh serde_derive v1.0.225
+       Fresh ryu v1.0.20
+       Fresh fnv v1.0.7
+       Fresh strsim v0.11.1
+       Fresh serde v1.0.225
+       Fresh serde_json v1.0.145
+       Fresh autocfg v1.5.0
+       Fresh ident_case v1.0.1
+       Fresh crate-git-revision v0.0.6
+       Fresh darling_core v0.20.11
+       Fresh thiserror-impl v1.0.69
+       Fresh darling_macro v0.20.11
+       Fresh darling v0.20.11
+       Fresh thiserror v1.0.69
+       Fresh serde_with_macros v3.14.0
+       Fresh semver v1.0.27
+       Fresh version_check v0.9.5
+       Fresh base32 v0.4.0
+       Fresh stellar-strkey v0.0.8
+       Fresh serde_with v3.14.0
+       Fresh hex v0.4.3
+       Fresh typenum v1.18.0
+       Fresh generic-array v0.14.7
+       Fresh either v1.15.0
+       Fresh rustc_version v0.4.1
+       Fresh itertools v0.11.0
+       Fresh equivalent v1.0.2
+       Fresh hashbrown v0.15.5
+       Fresh indexmap v2.11.3
+       Fresh soroban-env-macros v21.2.1
+       Fresh crypto-common v0.1.6
+       Fresh block-buffer v0.10.4
+       Fresh num-derive v0.4.2
+       Fresh digest v0.10.7
+       Fresh wasmparser v0.116.1
+       Fresh cfg-if v1.0.3
+       Fresh escape-bytes v0.1.1
+       Fresh cpufeatures v0.2.17
+       Fresh base64 v0.13.1
+       Fresh stellar-xdr v21.2.0
+       Fresh sha2 v0.10.9
+       Fresh num-traits v0.2.19
+       Fresh soroban-spec v21.7.7
+       Fresh prettyplease v0.2.37
+       Fresh num-integer v0.1.46
+       Fresh static_assertions v1.1.0
+       Fresh ethnum v1.5.2
+       Fresh soroban-spec-rust v21.7.7
+       Fresh soroban-env-common v21.2.1
+       Fresh num-bigint v0.4.6
+       Fresh soroban-sdk-macros v21.7.7
+       Fresh soroban-env-guest v21.2.1
+       Fresh bytes-lit v0.0.5
+       Fresh soroban-sdk v21.7.7
+   Compiling badgecontract v0.1.0 (/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract)
+     Running `/home/allanrpereira/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name organization_contract --edition=2021 src/organization_contract.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type cdylib --emit=dep-info,link -C opt-level=z -C panic=abort -C lto -C codegen-units=1 -C overflow-checks=on --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=6d4efc0b5556ac4a --out-dir /home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/wasm32-unknown-unknown/release/deps --target wasm32-unknown-unknown -C strip=symbols -L dependency=/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/wasm32-unknown-unknown/release/deps -L dependency=/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/release/deps --extern soroban_sdk=/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/wasm32-unknown-unknown/release/deps/libsoroban_sdk-a3c2c161d2d72705.rlib`
+error[E0277]: the trait bound `soroban_sdk::Val: From<soroban_sdk::Address>` is not satisfied
+  --> src/organization_contract.rs:95:27
+   |
+95 |             admin.clone().into()
+   |                           ^^^^ the trait `From<soroban_sdk::Address>` is not implemented for `soroban_sdk::Val`
+   |
+   = help: the following other types implement trait `From<T>`:
+             `soroban_sdk::Val` implements `From<&()>`
+             `soroban_sdk::Val` implements `From<&MapObject>`
+             `soroban_sdk::Val` implements `From<&VecObject>`
+             `soroban_sdk::Val` implements `From<&i32>`
+             `soroban_sdk::Val` implements `From<&soroban_env_common::bytes::BytesObject>`
+             `soroban_sdk::Val` implements `From<&soroban_env_common::num::DurationObject>`
+             `soroban_sdk::Val` implements `From<&soroban_env_common::num::DurationSmall>`
+             `soroban_sdk::Val` implements `From<&soroban_env_common::num::DurationVal>`
+           and 82 others
+   = note: required for `soroban_sdk::Address` to implement `Into<soroban_sdk::Val>`
+help: consider removing this method call, as the receiver has type `soroban_sdk::Address` and `soroban_sdk::Address: From<soroban_sdk::Address>` trivially holds
+   |
+95 -             admin.clone().into()
+95 +             admin.into()
+   |
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `badgecontract` (lib) due to 1 previous error
+
+Caused by:
+  process didn't exit successfully: `/home/allanrpereira/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name organization_contract --edition=2021 src/organization_contract.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type cdylib --emit=dep-info,link -C opt-level=z -C panic=abort -C lto -C codegen-units=1 -C overflow-checks=on --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=6d4efc0b5556ac4a --out-dir /home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/wasm32-unknown-unknown/release/deps --target wasm32-unknown-unknown -C strip=symbols -L dependency=/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/wasm32-unknown-unknown/release/deps -L dependency=/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/release/deps --extern soroban_sdk=/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/organization_contract/target/wasm32-unknown-unknown/release/deps/libsoroban_sdk-a3c2c161d2d72705.rlib` (exit status: 1)

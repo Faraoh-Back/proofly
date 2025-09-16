@@ -1,0 +1,34 @@
+# Instale Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Talvez precise instalar uma bilioteca do sistema lib caso falhe 
+
+# Instale o Stellar CLI
+cargo install --locked stellar-cli
+
+# Gere um novo par de chaves
+stellar keys generate --global Admin --network testnet
+
+# Visualize o endereço
+stellar keys address Admin
+
+# Configure o target WASM
+rustup target add wasm32-unknown-unknown
+
+# Buildar o contrato
+cargo build --target wasm32-unknown-unknown --release --verbose &> build.log
+
+## Depois que dar Deploy você recebe um ID do Contrato
+# NFT ID: CCXSLIQAOPT3MADV3SMYIUSMUS7WYPGOPQA662F4P6WBHD4ZQMRMYSHY
+
+# Deploy do contrato
+
+stellar contract deploy \
+  --wasm contracts/event_contract/target/wasm32-unknown-unknown/release/event_contract.wasm \
+  --source Admin \
+  --network testnet
+
+stellar contract deploy \
+  --wasm contracts/organization_contract/target/wasm32-unknown-unknown/release/organization_contract.wasm \
+  --source Admin \
+  --network testnet
