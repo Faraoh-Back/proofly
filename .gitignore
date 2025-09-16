@@ -48,3 +48,5 @@ Contrato/old/*
 Contrato/contracts/event_contract/target/*
 Contrato/contracts/organization_contract/target/*
 
+# Dependency lock files
+yarn.lock
