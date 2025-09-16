@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/deploy.js": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "STELLAR_SECRET_KEY": "@stellar-secret-key"
+  }
+}

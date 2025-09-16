@@ -41,6 +41,16 @@ yarn-error.log*
 certificates
 .env*.local
 
+<<<<<<< HEAD
 # Dependency lock files
 yarn.lock
 package-lock.json
+=======
+# Contratos Compilados
+
+Contrato/contracts/target/*
+Contrato/old/*
+Contrato/contracts/event_contract/target/*
+Contrato/contracts/organization_contract/target/*
+
+>>>>>>> 9bb625f6daec3d3bf2c289dc12c0da14c213c876
