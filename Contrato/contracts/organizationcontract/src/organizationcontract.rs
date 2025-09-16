@@ -9,6 +9,7 @@ use soroban_sdk::{
 pub struct BadgeContractData {
     pub id: u32,
     pub creator: Address,
+    pub badge_address: Address
 }
 
 #[contracttype]
@@ -31,7 +32,7 @@ impl OrganizationContract {
         env.storage().instance().set(&DataKey::Admin, &admin);
     }
 
-    pub fn create_badge_contract(env: Env, badge_id: u32) {
+    pub fn create_badge_contract(env: Env, badge_id: u32, wasm_hash: BytesN<32>, salt: BytesN<32>, constructor_args: Vec<Val>) {
         let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
         admin.require_auth();
 
@@ -48,6 +49,13 @@ impl OrganizationContract {
             .get(&DataKey::TotalBadges).unwrap_or(0);
         total += 1;
         env.storage().persistent().set(&DataKey::TotalBadges, &total);
+
+        let deployed_address = env
+            .deployer()
+            .with_address(env.current_contract_address(), salt)
+            .deploy_v2(wasm_hash, constructor_args);
+            
+        badge.badge_address = deployed_address;
     }
 
     pub fn get_badge_contracts(env: Env) -> Vec<u32> {

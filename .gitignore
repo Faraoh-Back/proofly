@@ -43,8 +43,7 @@ certificates
 
 # Contratos Compilados
 
-Contrato/contracts/target/*
-Contrato/contracts/Cargo.lock
+Contrato/contracts/*/target/*
+Contrato/contracts/*/build.log
+Contrato/contracts/*/Cargo.lock
 
-Contrato/frontend/node_modules/*
-Contrato/frontend/package-lock.json

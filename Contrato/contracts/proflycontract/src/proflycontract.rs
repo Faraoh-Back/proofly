@@ -9,6 +9,7 @@ use soroban_sdk::{
 pub struct OrganizationData {
     pub id: u32,
     pub owner: Address,
+    pub org_address: Address
 }
 
 #[contracttype]
@@ -31,7 +32,7 @@ impl ProflyContract {
         env.storage().instance().set(&DataKey::Admin, &admin);
     }
 
-    pub fn create_organization(env: Env, caller: Address, org_id: u32) {
+    pub fn create_organization(env: Env, caller: Address, org_id: u32, wasm_hash: BytesN<32>, salt: BytesN<32>, constructor_args: Vec<Val>) {
         let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
         admin.require_auth();
 
@@ -50,6 +51,13 @@ impl ProflyContract {
             .get(&DataKey::TotalOrganizations).unwrap_or(0);
         total += 1;
         env.storage().persistent().set(&DataKey::TotalOrganizations, &total);
+
+        let deployed_address = env
+            .deployer()
+            .with_address(env.current_contract_address(), salt)
+            .deploy_v2(wasm_hash, constructor_args);
+            
+        badge.org_address = deployed_address;
     }
 
     pub fn get_organizations(env: Env, owner: Address) -> Vec<u32> {

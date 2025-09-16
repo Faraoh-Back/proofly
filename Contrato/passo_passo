@@ -16,7 +16,7 @@ stellar keys address Admin
 rustup target add wasm32-unknown-unknown
 
 # Buildar o contrato
-cargo build --target wasm32-unknown-unknown --release
+cargo build --target wasm32-unknown-unknown --release --verbose &> build.log
 
 ## Depois que dar Deploy você recebe um ID do Contrato
 # NFT ID: CCXSLIQAOPT3MADV3SMYIUSMUS7WYPGOPQA662F4P6WBHD4ZQMRMYSHY

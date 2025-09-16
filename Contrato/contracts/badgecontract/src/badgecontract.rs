@@ -47,7 +47,7 @@ impl BadgeContract {
             receiver: to.clone(), 
             uri , 
             badge_type, 
-            badge_contract_id: env.current_contract(), org: 0, name: String::from_slice(&env, ""), description: String::from_slice(&env, ""), acronym: String::from_slice(&env, "") 
+            badge_contract_id: env.current_contract_address(), org: 0, name: String::from_str(&env, ""), description: String::from_str(&env, ""), acronym: String::from_str(&env, "") 
         };
 
         env.storage().persistent().set(&DataKey::NFTs(nft_id), &nft);
