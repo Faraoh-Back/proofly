@@ -32,7 +32,8 @@ impl ProflyContract {
     }
 
     pub fn create_organization(env: Env, caller: Address, org_id: u32) {
-        caller.require_auth();
+        let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
+        admin.require_auth();
 
         // Registrar organização
         let org = OrganizationData { id: org_id, owner: caller.clone() };

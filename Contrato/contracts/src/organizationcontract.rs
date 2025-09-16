@@ -31,17 +31,18 @@ impl OrganizationContract {
         env.storage().instance().set(&DataKey::Admin, &admin);
     }
 
-    pub fn create_badge_contract(env: Env, caller: Address, badge_id: u32) {
-        caller.require_auth();
+    pub fn create_badge_contract(env: Env, badge_id: u32) {
+        let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
+        admin.require_auth();
 
-        let badge = BadgeContractData { id: badge_id, creator: caller.clone() };
+        let badge = BadgeContractData { id: badge_id, creator: admin.clone() };
         env.storage().persistent().set(&DataKey::BadgeContract(badge_id), &badge);
 
         // Adicionar à lista
         let mut badges: Vec<u32> = env.storage().persistent()
-            .get(&DataKey::BadgeContracts(caller.clone())).unwrap_or(Vec::new(&env));
+            .get(&DataKey::BadgeContracts(admin.clone())).unwrap_or(Vec::new(&env));
         badges.push_back(badge_id);
-        env.storage().persistent().set(&DataKey::BadgeContracts(caller), &badges);
+        env.storage().persistent().set(&DataKey::BadgeContracts(admin), &badges);
 
         let mut total: u32 = env.storage().persistent()
             .get(&DataKey::TotalBadges).unwrap_or(0);
@@ -49,9 +50,10 @@ impl OrganizationContract {
         env.storage().persistent().set(&DataKey::TotalBadges, &total);
     }
 
-    pub fn get_badge_contracts(env: Env, creator: Address) -> Vec<u32> {
+    pub fn get_badge_contracts(env: Env) -> Vec<u32> {
+        let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
         env.storage().persistent()
-            .get(&DataKey::BadgeContracts(creator))
+            .get(&DataKey::BadgeContracts(admin.clone()))
             .unwrap_or(Vec::new(&env))
     }
 

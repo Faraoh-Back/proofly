@@ -8,8 +8,14 @@ use soroban_sdk::{
 #[derive(Clone)]
 pub struct BadgeNFT {
     pub id: u32,
+    pub org: u32,
+    pub badge_contract_id: Address,
     pub receiver: Address,
     pub uri: String,
+    pub badge_type: String,
+    pub name: String,
+    pub description: String,
+    pub acronym: String
 }
 
 #[contracttype]
@@ -32,11 +38,18 @@ impl BadgeContract {
         env.storage().instance().set(&DataKey::Admin, &admin);
     }
 
-    pub fn mint_badge(env: Env, caller: Address, nft_id: u32, to: Address, uri: String) {
+    pub fn mint_badge(env: Env, nft_id: u32, to: Address, uri: String, badge_type: String) {
         let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
         admin.require_auth(); // só admin do contrato pode mintar
 
-        let nft = BadgeNFT { id: nft_id, receiver: to.clone(), uri };
+        let nft = BadgeNFT { 
+            id: nft_id, 
+            receiver: to.clone(), 
+            uri , 
+            badge_type, 
+            badge_contract_id: env.current_contract(), org: 0, name: String::from_slice(&env, ""), description: String::from_slice(&env, ""), acronym: String::from_slice(&env, "") 
+        };
+        
         env.storage().persistent().set(&DataKey::NFTs(nft_id), &nft);
 
         // registrar no receiver
@@ -59,6 +72,11 @@ impl BadgeContract {
         env.storage().persistent()
             .get(&DataKey::Receivers(user))
             .unwrap_or(Vec::new(&env))
+    }
+
+    pub fn get_org_of_nft(env: Env, nft_id: u32) -> u32 {
+        let nft: BadgeNFT = env.storage().persistent().get(&DataKey::NFTs(nft_id)).unwrap();
+        nft.org_id
     }
 
     pub fn total_nfts(env: Env) -> u32 {
