@@ -1,6 +1,7 @@
 import Events from "@/components/ui/Events";
 import Forum from "@/components/ui/Forum";
 import Freelancers from "@/components/ui/Freelancers";
+import Hire from "@/components/ui/Hire/index";
 
 export default async function CompanyPage({
   searchParams,
@@ -24,6 +25,16 @@ export default async function CompanyPage({
           }`}
         >
           Forum
+        </a>
+        <a
+          href="/company?tab=hire"
+          className={`block py-2 px-4 rounded-lg transition ${
+            activeMenu === "hire"
+              ? "bg-db-cyan text-db-dark-blue font-bold"
+              : "hover:bg-db-blue-dark"
+          }`}
+        >
+            Hire
         </a>
         <a
           href="/company?tab=freelance"
@@ -52,6 +63,7 @@ export default async function CompanyPage({
       {/* Main Content */}
       <main className="flex-1 p-8">
         {activeMenu === "forum" && <Forum />}
+        {activeMenu === "hire" && <Hire />}
         {activeMenu === "freelance" && <Freelancers />}
         {activeMenu === "events" && <Events />}
       </main>

@@ -1,3 +1,6 @@
+// components/ui/Forum/index.tsx
+import { ForumPage } from '../ForumPage';
+
 export default function Forum() {
-    return <div className="p-6">📢 Forum content here</div>;
+    return <ForumPage />;
 }
