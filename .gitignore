@@ -43,7 +43,8 @@ certificates
 
 # Contratos Compilados
 
-Contrato/contracts/*/target/*
-Contrato/contracts/*/build.log
-Contrato/contracts/*/Cargo.lock
+Contrato/contracts/target/*
+Contrato/old/*
+Contrato/contracts/event_contract/target/*
+Contrato/contracts/organization_contract/target/*
 

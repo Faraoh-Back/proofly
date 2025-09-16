@@ -1,8 +1,0 @@
-/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/proflycontract/target/release/deps/serde_with_macros-dead0ddecbef507f.d: /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/lib.rs /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/apply.rs /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/lazy_bool.rs /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/utils.rs
-
-/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/proflycontract/target/release/deps/libserde_with_macros-dead0ddecbef507f.so: /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/lib.rs /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/apply.rs /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/lazy_bool.rs /home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/utils.rs
-
-/home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/lib.rs:
-/home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/apply.rs:
-/home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/lazy_bool.rs:
-/home/allanrpereira/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_with_macros-3.14.0/src/utils.rs:

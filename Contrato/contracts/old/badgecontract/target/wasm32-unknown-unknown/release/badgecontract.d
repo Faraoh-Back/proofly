@@ -1,1 +1,0 @@
-/home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/badgecontract/target/wasm32-unknown-unknown/release/badgecontract.wasm: /home/allanrpereira/Documentos/Projetos/Meridian/proofly/Contrato/contracts/badgecontract/src/badgecontract.rs
