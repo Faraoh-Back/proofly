@@ -38,7 +38,7 @@ impl BadgeContract {
         env.storage().instance().set(&DataKey::Admin, &admin);
     }
 
-    pub fn mint_badge(env: Env, nft_id: u32, to: Address, uri: String, badge_type: String) {
+    pub fn create_nft(env: Env, nft_id: u32, to: Address, uri: String, badge_type: String) {
         let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
         admin.require_auth(); // só admin do contrato pode mintar
 
@@ -47,7 +47,11 @@ impl BadgeContract {
             receiver: to.clone(), 
             uri , 
             badge_type, 
-            badge_contract_id: env.current_contract_address(), org: 0, name: String::from_str(&env, ""), description: String::from_str(&env, ""), acronym: String::from_str(&env, "") 
+            badge_contract_id: env.current_contract_address(), 
+            org: 0, 
+            name: String::from_str(&env, ""), 
+            description: String::from_str(&env, ""), 
+            acronym: String::from_str(&env, "") 
         };
 
         env.storage().persistent().set(&DataKey::NFTs(nft_id), &nft);
@@ -62,6 +66,25 @@ impl BadgeContract {
             .get(&DataKey::TotalNFTs).unwrap_or(0);
         total += 1;
         env.storage().persistent().set(&DataKey::TotalNFTs, &total);
+
+        let constructor_args: Vec<Val> = vec![
+            nft.id,
+            nft.receiver,
+            nft.uri,
+            nft.badge_type,
+            nft.badge_contract_id,
+            nft.org,
+            nft.name,
+            nft.description,
+            nft.acronym
+        ];
+
+        let deployed_address = env
+            .deployer()
+            .with_address(env.current_contract_address(), salt)
+            .deploy_v2(wasm_hash, constructor_args);
+
+        nft.badge_address = deployed_address;
     }
 
     pub fn get_nft(env: Env, nft_id: u32) -> BadgeNFT {
