@@ -49,7 +49,7 @@ impl BadgeContract {
             badge_type, 
             badge_contract_id: env.current_contract(), org: 0, name: String::from_slice(&env, ""), description: String::from_slice(&env, ""), acronym: String::from_slice(&env, "") 
         };
-        
+
         env.storage().persistent().set(&DataKey::NFTs(nft_id), &nft);
 
         // registrar no receiver
@@ -76,7 +76,7 @@ impl BadgeContract {
 
     pub fn get_org_of_nft(env: Env, nft_id: u32) -> u32 {
         let nft: BadgeNFT = env.storage().persistent().get(&DataKey::NFTs(nft_id)).unwrap();
-        nft.org_id
+        nft.org
     }
 
     pub fn total_nfts(env: Env) -> u32 {
