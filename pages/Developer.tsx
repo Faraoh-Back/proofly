@@ -1,8 +1,17 @@
-import Events from "@/components/ui/Events";
+import dynamic from "next/dynamic";
 import Forum from "@/components/ui/Forum";
 import Freelancers from "@/components/ui/Freelancers";
-import Classes from "@/components/ui/Classes";
 import Profile from "@/components/ui/Profile/Profile";
+
+// Dynamic import para evitar problemas de SSR com React Three Fiber
+const Events = dynamic(() => import("@/components/ui/Events"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-[400px]">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+    </div>
+  )
+});
 
 
 export default async function DeveloperPage({
@@ -59,16 +68,6 @@ export default async function DeveloperPage({
         >
           Events
         </a>
-        <a
-          href="/developer?tab=classes"
-          className={`block py-2 px-4 rounded-lg transition ${
-            activeMenu === "classes"
-              ? "bg-db-cyan text-db-dark-blue font-bold"
-              : "hover:bg-db-blue-dark"
-          }`}
-        >
-          Classes
-        </a>
       </aside>
 
       {/* Main Content */}
@@ -77,7 +76,6 @@ export default async function DeveloperPage({
         {activeMenu === "forum" && <Forum />}
         {activeMenu === "freelance" && <Freelancers userType="developer" />}
         {activeMenu === "events" && <Events />}
-        {activeMenu === "classes" && <Classes />}
 
       </main>
     </div>

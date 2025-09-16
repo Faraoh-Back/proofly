@@ -14,6 +14,7 @@ interface NavlinksProps {
 
 export default function Navlinks({ user }: NavlinksProps) {
   const router = getRedirectMethod() === 'client' ? useRouter() : null;
+  const pathname = usePathname();
 
   return (
     <div className="relative flex flex-row justify-between items-center py-3 w-full">
@@ -37,25 +38,70 @@ export default function Navlinks({ user }: NavlinksProps) {
 
       {/* Navigation Links */}
       <motion.nav 
-        className="hidden md:flex items-center space-x-8"
+        className="hidden lg:flex items-center space-x-6"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <Link 
           href="/" 
-          className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
         >
           <span className="relative z-10">Home</span>
           <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
           <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
         </Link>
+
+        <Link 
+          href="/developer" 
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+        >
+          <span className="relative z-10">For Developers</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
+          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
+        </Link>
+
+        <Link 
+          href="/company" 
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+        >
+          <span className="relative z-10">For Companies</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
+          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
+        </Link>
+
+        <Link 
+          href="/developer?tab=events" 
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+        >
+          <span className="relative z-10">Events</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
+          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
+        </Link>
+
+        <Link 
+          href="/community" 
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+        >
+          <span className="relative z-10">Community</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
+          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
+        </Link>
         
         <Link 
-          href="/pricing" 
-          className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+          href="/about" 
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
         >
-          <span className="relative z-10">Pricing</span>
+          <span className="relative z-10">About</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
+          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
+        </Link>
+
+        <Link 
+          href="/contact" 
+          className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+        >
+          <span className="relative z-10">Contact</span>
           <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
           <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-db-cyan to-blue-500 group-hover:w-full transition-all duration-300" />
         </Link>
@@ -63,7 +109,7 @@ export default function Navlinks({ user }: NavlinksProps) {
         {user && (
           <Link 
             href="/account" 
-            className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
+            className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 group"
           >
             <span className="relative z-10">Account</span>
             <div className="absolute inset-0 bg-gradient-to-r from-db-cyan/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
@@ -81,7 +127,7 @@ export default function Navlinks({ user }: NavlinksProps) {
       >
         {user ? (
           <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
-            <input type="hidden" name="pathName" value={usePathname()} />
+            <input type="hidden" name="pathName" value={pathname || ''} />
             <button 
               type="submit" 
               className="relative px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-500/20 to-red-600/20 border border-red-500/30 rounded-lg hover:from-red-500/30 hover:to-red-600/30 hover:border-red-400/50 transition-all duration-300 group overflow-hidden"
@@ -101,7 +147,7 @@ export default function Navlinks({ user }: NavlinksProps) {
         )}
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300">
+        <button className="lg:hidden p-2 text-white/80 hover:text-white transition-colors duration-300">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
