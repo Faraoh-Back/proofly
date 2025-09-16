@@ -2,7 +2,7 @@
 use soroban_sdk::{
     contract, contractimpl, contracttype, contracterror,
     Address, Bytes, Env, String, Vec, vec, log, symbol_short,
-    BytesN, Symbol, Val  // ✅ Imports corretos
+    BytesN  // ✅ Imports corretos
 };
 
 // Error types for better error handling
@@ -116,7 +116,7 @@ impl OrganizationContract {
         // Emit event
         env.events().publish(
             (symbol_short!("org_new"), org_id.clone()),
-            (name, event_contract_addr.clone())
+            (name.clone(), event_contract_addr.clone())
         );
         
         log!(&env, "Organization created: {}", name);
