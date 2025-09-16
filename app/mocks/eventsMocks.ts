@@ -195,3 +195,5 @@ export const getEventsByTag = (tag: string): StellarEvent[] => {
     event.tags.some(eventTag => eventTag.toLowerCase().includes(tag.toLowerCase()))
   );
 };
+
+export type { StellarEvent };
