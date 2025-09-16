@@ -1,25 +1,35 @@
 'use client';
 
+import React, { Suspense, useRef, useEffect, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
+// ALTERADO: Importando SelectiveBloom e Select
+import { EffectComposer, SelectiveBloom, Select } from '@react-three/postprocessing';
+import * as THREE from 'three';
 
-import React, { Suspense, useRef, useEffect, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-
-function Particles({ count = 50 }) {
+// Componente Particles (sem alterações)
+function Particles({ count = 200 }) {
+  // ... código idêntico
   const pointsRef = useRef<THREE.Points>(null);
+
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
+    const radius = 5;
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 7;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 7;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 7;
+      const theta = 2 * Math.PI * Math.random();
+      const phi = Math.acos(2 * Math.random() - 1);
+      pos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      pos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      pos[i * 3 + 2] = radius * Math.cos(phi);
     }
     return pos;
   }, [count]);
 
-  useFrame(() => {
-    if (pointsRef.current) pointsRef.current.rotation.y += 0.002;
+  useFrame((state, delta) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y += delta * 0.1;
+      pointsRef.current.rotation.x += delta * 0.05;
+    }
   });
 
   return (
@@ -32,82 +42,105 @@ function Particles({ count = 50 }) {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial color={0x9f9f9f} size={0.1} sizeAttenuation />
+      <pointsMaterial 
+        color="#00f0ff" 
+        size={0.05} 
+        sizeAttenuation 
+        transparent 
+        opacity={0.7}
+        blending={THREE.AdditiveBlending}
+      />
     </points>
   );
 }
 
+// Componente Model (sem alterações)
 function Model({ url }: { url: string }) {
+    // ... código idêntico
     const { scene } = useGLTF(url);
     const ref = useRef<THREE.Group>(null);
   
     useEffect(() => {
-      // Force all meshes to be white - more aggressive approach
       scene.traverse((child: any) => {
         if (child.isMesh) {
-          // Create a completely new white material
-          child.material = new THREE.MeshStandardMaterial({
-            // color: 0x00f0ff,
-            color: 0x3a7ca5,
-            // color: 0x3a7ca5,
-            metalness: 0.8,
-            roughness: 0.1,
-            emissive: 0x1f1f1f,
+          child.material = new THREE.MeshPhysicalMaterial({
+            color: 0x00f0ff,
+            metalness: 0.9,
+            roughness: 0.05,
+            iridescence: 1,
+            iridescenceIOR: 1.7,
+            iridescenceThicknessRange: [100, 800],
+            clearcoat: 1,
+            clearcoatRoughness: 0.1,
+            emissive: 0x00f0ff, // A cor emissiva é crucial para o SelectiveBloom
+            emissiveIntensity: 0.5, // Aumentamos um pouco a emissão para o efeito
           });
-          
-          // Remove any textures that might override the color
-          child.material.map = null;
-          child.material.normalMap = null;
-          child.material.roughnessMap = null;
-          child.material.metalnessMap = null;
-          child.material.aoMap = null;
-          child.material.emissiveMap = null;
-          
-          child.material.needsUpdate = true;
           child.castShadow = true;
           child.receiveShadow = true;
         }
       });
     }, [scene]);
   
-    useFrame(() => {
-      if (ref.current) ref.current.rotation.y += 0.01;
+    useFrame((state, delta) => {
+      if (ref.current) {
+        ref.current.rotation.y += delta * 0.2;
+      }
     });
   
     return <primitive ref={ref} object={scene} scale={5} />;
-  }
+}
+
+
+function Scene({ url }: { url: string }) {
+  return (
+    <>
+      <ambientLight intensity={0.2} />
+      <directionalLight color={0x00f0ff} intensity={3} position={[5, 5, 5]} castShadow />
+      
+      <Suspense fallback={null}>
+        {/* NOVO: Envolvemos o modelo com <Select> para marcá-lo para o brilho */}
+        <Select enabled>
+          <Model url={url} />
+        </Select>
+        <Environment preset="city" />
+      </Suspense>
+
+      <Particles count={150} />
+    </>
+  );
+}
 
 export default function StellarLogo({ url }: { url: string }) {
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 5, 15], fov: 50 }}
-      style={{ background: "#0a101e", height: 500 }}
+      dpr={[1, 2]}
+      camera={{ position: [0, 2, 10], fov: 60 }}
+      gl={{ alpha: true }}
+      style={{ 
+        background: 'transparent', 
+        height: 500,
+        width: '100%',
+      }}
     >
-      {/* Lights */}
-      <ambientLight intensity={1} />
-      <directionalLight
-        color={0xffffff} // cool divine tech light
-        intensity={2}
-        position={[5, 5, 5]}
-        castShadow
+      <Scene url={url} />
+      <OrbitControls 
+        enablePan={false} 
+        enableZoom={false} 
+        minPolarAngle={Math.PI / 2.5}
+        maxPolarAngle={Math.PI / 2.5}
       />
-      <spotLight
-        color={0x1a2c42}
-        intensity={1.5}
-        position={[-5, 5, -5]}
-        angle={0.3}
-        penumbra={0.5}
-        castShadow
-      />
-      <pointLight color={0xdaa520} intensity={0.5} position={[0, 5, 0]} />
-      <Suspense fallback={null}>
-        <Model url={url} />
-      </Suspense>
-
-      <Particles count={100} />
-
-      <OrbitControls enablePan={false} enableZoom={false} />
+      
+      {/* ALTERADO: Trocamos Bloom por SelectiveBloom */}
+      <EffectComposer autoClear={false}>
+        <SelectiveBloom
+            intensity={2.0}
+            luminanceThreshold={0.01}
+            luminanceSmoothing={0.025}
+            mipmapBlur
+            radius={0.7}
+        />
+      </EffectComposer>
     </Canvas>
   );
 }
